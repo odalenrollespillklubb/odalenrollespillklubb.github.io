@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Infoskjerm &mdash; Odal Rollespillklubb</title>
+<!-- Infoskjerm som går i loop. Ingen lenker hit fra resten av siden. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Caladea/Carlito are metric-compatible stand-ins for Cambria/Calibri on non-Windows screens -->
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+
+<!--
+  Slik endrer du lysbildene:
+  - Hvert lysbilde er en <section class="slide"> under. Teksten kan endres direkte.
+  - data-title er navnet som vises i navigasjonen nederst.
+  - data-footer="dark" / "light" legger til bunnfeltet med QR-kodene (malen nederst i filen).
+  - Visningstid per lysbilde: data-duration (sekunder) på <main>, eller på et enkelt lysbilde.
+  Tastatur: ← → blar, mellomrom = pause, F = fullskjerm, 1–8 hopper til lysbilde.
+-->
+<main class="slideshow" id="slideshow" data-duration="10" aria-roledescription="lysbildefremvisning" aria-label="Infoskjerm">
+  <div class="stage" id="stage">
+
+    <!-- 1 -->
+    <section class="slide slide--hero" data-title="Bli med i ORK" data-footer="dark">
+      <img class="hero-bg" src="assets/slides/hero-bakgrunn.jpg" alt="">
+      <img class="hero-logo" src="assets/slides/ork-logo.png" alt="ORK – Odal Rollespillklubb">
+      <div class="hero-text">
+        <h1>Bli med i ORK</h1>
+        <p class="hero-sub">Fredagskveld på låven kl. 17:00 til 20:00</p>
+        <p class="hero-lead">Rollespill, brettspill, miniatyrer, cosplay og annen nerdekultur i Nord-Odal. Nye medlemmer er alltid velkomne, enten du har spilt i ti år eller aldri har kastet en terning.</p>
+        <p class="hero-age"><strong>12+</strong> <span>Ingen forkunnskaper, ingen påmelding. Bare bli med!</span></p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide slide--light" data-title="Hva er ORK?" data-footer="light">
+      <div class="cols">
+        <div class="col-text">
+          <h2>Hva er ORK?</h2>
+          <p class="body-l">Odal Rollespillklubb er en ideell forening og en alternativ ungdomsklubb i Nord-Odal, stiftet i 2018 og registrert i Frivillighetsregisteret.</p>
+          <p class="body-l">Vi er et rusfritt og trygt sted for alle fra 12 år og oppover, uavhengig av kjønn, legning og tro. Her kan du senke skuldrene, bli kjent med folk som liker det samme som deg, og bli god på noe nytt.</p>
+        </div>
+        <div class="col-media col-media--split">
+          <img class="photo" src="assets/slides/spillhylle.jpg" alt="Spillhyller fulle av brettspill">
+          <div class="green-box">
+            <p><b>Alle fredager fra kl. 17:00:</b> brettspill, rollespill og miniatyrer. Vi er åpne for det meste!</p>
+            <p><b>Siste fredag i måneden</b> er kvelden 18+ (URUKHAI). Den uka møtes vi også til brettspill på biblioteket på søndagen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide slide--light" data-title="Åpen Låve" data-footer="light">
+      <div class="cols">
+        <div class="col-text">
+          <h2>Hva er Åpen Låve?</h2>
+          <p class="body-s">Navnet kommer av at lokalet vårt ligger inne på en låve. Innenfor finner du et godt og innredet klubblokale laget for brettspill, rollespill og nerding. Hver fredag er døra åpen fra kl. 17:00 til 20:00, uten påmelding og uten krav. Etter kl. 20:00 kan låven holdes åpen for eldre medlemmer så lenge en ansvarsperson er til stede. Kom når det passer deg, og velg selv hva du vil være med på.</p>
+          <ul class="lead-list">
+            <li><b>Brettspill fra hylla,</b> eller ta med ditt eget.</li>
+            <li><b>Rollespill</b> for deg som vil være med i en gruppe, eller bare se hvordan det foregår.</li>
+            <li><b>Miniatyrer og maling</b> ved malebordet, med utstyr fra klubben.</li>
+            <li><b>Eller bare heng og prat</b> med folk som liker det samme som deg.</li>
+          </ul>
+          <div class="green-box green-box--wide">
+            <p><b>Unntak:</b> siste fredag i måneden er 18+ (URUKHAI). Den uka møtes vi også til brettspill på biblioteket på søndagen.</p>
+          </div>
+        </div>
+        <div class="col-media photo-grid photo-grid--2">
+          <img class="photo photo--main" src="assets/slides/terreng.jpg" alt="Miniatyrer på et spillbrett med trær og hus">
+          <img class="photo" src="assets/slides/kortspill.jpg" alt="Hender som holder spillkort">
+          <img class="photo" src="assets/slides/terninger.jpg" alt="Grønne terninger på et rollespillark">
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide slide--dark" data-title="Dette driver vi med" data-footer="dark">
+      <h2>Dette driver vi med</h2>
+      <div class="cards-4">
+        <figure>
+          <img class="photo" src="assets/slides/rollespill.jpg" alt="Terninger foran et rollespillterreng">
+          <figcaption><h3>Rollespill</h3><p>Eventyr rundt bordet. Terninger, regelbøker og spilledere har vi.</p></figcaption>
+        </figure>
+        <figure>
+          <img class="photo" src="assets/slides/brettspill.jpg" alt="Brettspill med sekskantede brikker">
+          <figcaption><h3>Brettspill</h3><p>Fra påskehytta-klassikere til moderne strategispill.</p></figcaption>
+        </figure>
+        <figure>
+          <img class="photo" src="assets/slides/miniatyrer.jpg" alt="Blåmalte miniatyrfigurer">
+          <figcaption><h3>Miniatyrer</h3><p>Mal figurer, bygg landskap og led hæren din.</p></figcaption>
+        </figure>
+        <figure>
+          <img class="photo" src="assets/slides/drage.jpg" alt="Oppblåsbar drage">
+          <figcaption><h3>Og mer til</h3><p>Cosplay, laiv, gaming, tegneserier, sci-fi og fantasy.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide slide--dark" data-title="Hva er rollespill?" data-footer="dark">
+      <div class="cols">
+        <div class="col-text">
+          <h2>Hva er rollespill?</h2>
+          <p class="body-m">Tenk på det som en fortelling dere lager sammen. En spilleder beskriver verdenen, du bestemmer hva figuren din gjør, og terningene avgjør om det går bra. Det finnes mange måter å spille på:</p>
+          <dl class="term-list">
+            <dt>Bordrollespill</dt>
+            <dd>Dungeons &amp; Dragons, Call of Cthulhu og mange flere. Penn, papir og terninger rundt et bord.</dd>
+            <dt>Laiv</dt>
+            <dd>Levende rollespill. Du spiller figuren din med kropp og stemme, ofte i kostyme.</dd>
+            <dt>Miniatyrspill</dt>
+            <dd>Taktiske slag med malte figurer på et landskap, for eksempel Warhammer og Mordheim.</dd>
+          </dl>
+        </div>
+        <figure class="col-media">
+          <img class="photo photo--main" src="assets/slides/kjempen.jpg" alt="En kjempe-miniatyr går mot en landsby av modellhus">
+          <figcaption class="caption">Kjempen er på vei mot landsbyen. Hva gjør gruppa di?</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide slide--light" data-title="Miniatyrmaling" data-footer="light">
+      <div class="cols">
+        <div class="col-text">
+          <h2>Hva er miniatyrmaling?</h2>
+          <p class="body-m">Figurene kommer grå i esken. Med grunning, tynne lag akrylmaling og en liten pensel gjør du dem til dine egne. Det er en rolig hobby som passer like godt alene som rundt et bord med andre.</p>
+          <ul class="bullets">
+            <li>Du trenger ikke kjøpe noe. Klubben har maling, pensler og grunning.</li>
+            <li>Vi har malekvelder der du lærer teknikkene steg for steg.</li>
+            <li>Figurene du maler kan du bruke i rollespill og miniatyrspill etterpå.</li>
+          </ul>
+        </div>
+        <div class="col-media photo-grid photo-grid--3">
+          <img class="photo photo--main" src="assets/slides/malebord.jpg" alt="Et medlem maler miniatyrer ved et bord fullt av maling">
+          <img class="photo" src="assets/slides/maling-1.jpg" alt="Nymalt miniatyrfigur">
+          <img class="photo" src="assets/slides/miniatyrer.jpg" alt="Blåmalte miniatyrfigurer">
+          <img class="photo" src="assets/slides/maling-3.jpg" alt="Flasker med modellmaling">
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide slide--light" data-title="Bli medlem" data-footer="light">
+      <div class="cols cols--member">
+        <div class="col-text">
+          <h2>Bli medlem</h2>
+          <p class="body-l">Medlemskapet gjelder for ett år og gir deg:</p>
+          <ul class="bullets">
+            <li>Alle arrangementer, turneringer og spillkvelder</li>
+            <li>Tilgang til klubbens Discord og andre kanaler</li>
+            <li>Stemmerett på årsmøtet, og mulighet til å forme klubben</li>
+          </ul>
+          <div class="green-box price-box">
+            <p class="price-title">Kontingent per år</p>
+            <p class="prices"><span><b>150 kr</b> under 30 år</span><span><b>200 kr</b> fra 30 år</span></p>
+          </div>
+        </div>
+        <div class="vipps-card">
+          <div class="vipps-text">
+            <h3>Betal med Vipps</h3>
+            <p>Søk opp <b>#568725</b> eller <b>ORK.Odal Rollespillklubb</b> i Vipps, eller skann koden.</p>
+            <p class="vipps-label">Skriv i meldingen:</p>
+            <ul class="bullets bullets--s">
+              <li>Navn på medlemmet</li>
+              <li>Fødselsår</li>
+              <li>Gjerne Discord-navn eller e-post</li>
+            </ul>
+          </div>
+          <figure class="vipps-qr">
+            <img class="qr" src="assets/slides/qr-vipps.png" alt="QR-kode for å betale med Vipps">
+            <figcaption>Vipps</figcaption>
+          </figure>
+          <p class="vipps-note">Eller kom innom en fredag, så ordner vi det der.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide slide--light slide--contact" data-title="Her finner du oss">
+      <h2>Her finner du oss</h2>
+      <p class="body-l">Skann en kode. Les mer på nettsiden, si hei på Discord, eller følg oss for program og bilder.</p>
+      <div class="qr-grid">
+        <figure><img class="qr" src="assets/slides/qr-nettside.png" alt="QR-kode til odalrollespill.no"><figcaption>Nettside</figcaption></figure>
+        <figure><img class="qr" src="assets/slides/qr-discord.png" alt="QR-kode til Discord"><figcaption><img src="assets/slides/ikon-discord.png" alt="">Discord</figcaption></figure>
+        <figure><img class="qr" src="assets/slides/qr-facebook.png" alt="QR-kode til Facebook"><figcaption><img src="assets/slides/ikon-facebook.png" alt="">Facebook</figcaption></figure>
+        <figure><img class="qr" src="assets/slides/qr-instagram.png" alt="QR-kode til Instagram"><figcaption><img src="assets/slides/ikon-instagram.png" alt="">Instagram</figcaption></figure>
+      </div>
+      <p class="contact-line"><b>odalrollespill.no</b><span>odalrollespillklubb@gmail.com</span><span>+47 99 51 52 52</span><span>Org.nr. 821 553 482</span></p>
+      <footer class="contact-band">Fredager kl. 17:00 til 20:00. &nbsp;Fra 12 år. &nbsp;Norbakken 5, 2133 Gardvik</footer>
+    </section>
+
+  </div>
+
+  <nav class="slide-nav" id="slide-nav" aria-label="Lysbilder">
+    <button class="nav-btn" id="slide-prev" type="button" aria-label="Forrige lysbilde">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <ol class="nav-list" id="nav-list"></ol>
+    <button class="nav-btn" id="slide-next" type="button" aria-label="Neste lysbilde">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="nav-btn nav-btn--pause" id="slide-pause" type="button" aria-label="Pause" aria-pressed="false">
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>
+    </button>
+    <button class="nav-btn" id="slide-fullscreen" type="button" aria-label="Fullskjerm">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+</main>
+
+<!-- Felles bunnfelt med adresse og QR-koder (brukes av lysbilder med data-footer) -->
+<template id="slide-footer">
+  <footer class="slide-footer">
+    <p class="footer-address"><b>Norbakken 5, 2133 Gardvik</b><br>odalrollespill.no<br>Fredager kl. 17:00 til 20:00. Fra 12 år.</p>
+    <div class="footer-qrs">
+      <figure><img class="qr" src="assets/slides/qr-discord.png" alt="QR-kode til Discord"><figcaption><img src="assets/slides/ikon-discord.png" alt="">Discord</figcaption></figure>
+      <figure><img class="qr" src="assets/slides/qr-facebook.png" alt="QR-kode til Facebook"><figcaption><img src="assets/slides/ikon-facebook.png" alt="">Facebook</figcaption></figure>
+      <figure><img class="qr" src="assets/slides/qr-instagram.png" alt="QR-kode til Instagram"><figcaption><img src="assets/slides/ikon-instagram.png" alt="">Instagram</figcaption></figure>
+    </div>
+  </footer>
+</template>
+
+<script src="js/slides.js"></script>
+</body>
+</html>

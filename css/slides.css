@@ -1,0 +1,298 @@
+/* Infoskjerm (slides.html). Each slide is drawn on a fixed 1600x900 canvas
+   (the PowerPoint's 13.33" x 7.5" at 120 px/inch) that js/slides.js scales to fit. */
+
+:root {
+  --ink: #1c1a17;
+  --night: #111009;
+  --cream: #f6f2ea;
+  --gold: #f2e6b8;
+  --stone: #e4ddcf;
+  --muted: #a8a196;
+  --muted-dark: #6b665d;
+  --forest: #2b4118;
+  --moss: #3f5f26;
+  --serif: Cambria, Caladea, Georgia, serif;
+  --sans: Calibri, Carlito, "Segoe UI", sans-serif;
+  --nav-height: 44px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: #000;
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.hide-cursor, body.hide-cursor * { cursor: none !important; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p, ul, dl, dd, figure { margin: 0; padding: 0; }
+ul { list-style: none; }
+
+/* ---------- Stage + scaling ---------- */
+.slideshow { position: fixed; inset: 0; touch-action: pan-y; user-select: none; }
+.stage {
+  position: absolute;
+  left: 50%;
+  top: calc((100% - var(--nav-height)) / 2);
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--scale, 0.5));
+  overflow: hidden;
+  background: var(--ink);
+}
+.slideshow.nav-hidden { --nav-height: 0px; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 72px 84px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 0s linear 1s;
+}
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease;
+  z-index: 1;
+}
+
+.slide--light { background: var(--cream); color: var(--ink); }
+.slide--dark  { background: var(--ink); color: var(--stone); }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: 1.1; }
+h2 { font-size: 68px; margin-bottom: 26px; }
+.slide--light h2 { color: var(--forest); }
+.slide--dark h2 { color: var(--cream); }
+
+.body-l { font-size: 29px; line-height: 1.32; margin-bottom: 18px; }
+.body-m { font-size: 27px; line-height: 1.27; margin-bottom: 18px; }
+.body-s { font-size: 23px; line-height: 1.3;  margin-bottom: 14px; }
+
+.photo { width: 100%; height: 100%; object-fit: cover; }
+
+/* Two columns: text left, pictures right (above the footer, which starts at y=744) */
+.cols {
+  display: grid;
+  grid-template-columns: 760px 1fr;
+  gap: 48px;
+  height: 640px;
+}
+.col-text { display: flex; flex-direction: column; }
+.col-media { min-height: 0; }
+
+/* ---------- Footer shared by most slides ---------- */
+.slide-footer {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 34px 0 60px;
+}
+.slide--dark .slide-footer, .slide--hero .slide-footer { background: var(--night); color: #fff; }
+.slide--light .slide-footer { color: var(--ink); }
+.footer-address { font-size: 21px; line-height: 1.36; }
+.footer-qrs { display: flex; gap: 22px; }
+.footer-qrs figure {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 284px;
+  height: 140px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 10px;
+  color: var(--ink);
+}
+.footer-qrs .qr { width: 112px; height: 112px; }
+.qr { image-rendering: pixelated; }
+.footer-qrs figcaption, .qr-grid figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 21px;
+}
+.footer-qrs figcaption img { width: 30px; height: auto; }
+
+/* ---------- 1: hero ---------- */
+.slide--hero { padding: 0; color: var(--stone); }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 744px; object-fit: cover; filter: brightness(0.82); }
+.hero-logo { position: absolute; left: 0; top: 221px; width: 640px; }
+.hero-text { position: absolute; left: 672px; top: 92px; width: 860px; }
+.hero-text h1 { font-size: 76px; color: var(--cream); margin-bottom: 12px; }
+.hero-sub { font-family: var(--serif); font-weight: 700; font-size: 44px; line-height: 1.2; color: var(--gold); margin-bottom: 18px; }
+.hero-lead { font-size: 29px; line-height: 1.38; }
+.hero-age { display: flex; align-items: center; gap: 52px; margin-top: 108px; font-size: 26px; }
+.hero-age strong { font-family: var(--serif); font-size: 66px; color: var(--gold); line-height: 1; }
+
+/* ---------- Green highlight box ---------- */
+.green-box {
+  background: var(--moss);
+  color: var(--cream);
+  border-radius: 12px;
+  padding: 20px 26px;
+  font-size: 23px;
+  line-height: 1.3;
+}
+.green-box p + p { margin-top: 10px; }
+.green-box b { color: var(--gold); }
+.green-box--wide { margin-top: auto; margin-bottom: 30px; padding: 26px 24px; }
+
+/* ---------- 2: Hva er ORK ---------- */
+.col-media--split { display: flex; flex-direction: column; justify-content: space-between; padding-top: 59px; padding-bottom: 35px; }
+.col-media--split .photo { height: 328px; }
+
+/* ---------- 3 / 6: photo grids ---------- */
+.lead-list li { font-size: 26px; line-height: 1.23; margin-bottom: 10px; }
+.lead-list b { color: var(--forest); }
+.photo-grid { display: grid; gap: 14px; padding-top: 90px; padding-bottom: 30px; }
+.photo-grid--2 { grid-template-columns: 1fr 1fr; grid-template-rows: 358px 1fr; }
+.photo-grid--3 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 358px 154px; padding-top: 96px; }
+.photo-grid .photo--main { grid-column: 1 / -1; }
+
+.bullets { margin-top: 32px; }
+.bullets li { position: relative; padding-left: 45px; font-size: 26px; line-height: 1.25; margin-bottom: 12px; }
+.bullets li::before { content: "•"; position: absolute; left: 4px; }
+.bullets--s { margin-top: 10px; }
+.bullets--s li { font-size: 23px; margin-bottom: 8px; }
+
+/* ---------- 4: four cards ---------- */
+.cards-4 { display: grid; grid-template-columns: repeat(4, 342px); gap: 24px; margin-top: 16px; }
+.cards-4 .photo { height: 256px; }
+.cards-4 h3 { font-size: 36px; color: var(--gold); margin: 18px 0 8px; }
+.cards-4 p { font-size: 24px; line-height: 1.25; }
+
+/* ---------- 5: rollespill ---------- */
+.term-list { margin-top: 44px; font-size: 24px; line-height: 1.25; }
+.term-list dt { font-weight: 700; color: var(--gold); }
+.term-list dd { margin-bottom: 14px; }
+.slide--dark .col-media { padding-top: 96px; }
+.slide--dark .col-media .photo { height: 358px; }
+.caption { margin-top: 10px; font-style: italic; font-size: 21px; color: var(--muted); }
+
+/* ---------- 7: Bli medlem ---------- */
+.cols--member { grid-template-columns: 637px 1fr; gap: 46px; }
+.price-box { margin-top: auto; margin-bottom: 42px; padding: 22px 32px 30px; }
+.price-title { font-family: var(--serif); font-weight: 700; font-size: 27px; color: var(--gold); margin-bottom: 30px; }
+.prices { display: flex; gap: 32px; align-items: baseline; font-size: 21px; }
+.prices b { font-family: var(--serif); font-size: 48px; color: #fff; margin-right: 6px; }
+.vipps-card {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 24px;
+  align-self: start;
+  margin-top: 90px;
+  grid-template-rows: auto 1fr;
+  height: 541px;
+  padding: 28px 36px 0;
+  background: #fff;
+  border-radius: 14px;
+}
+.vipps-text h3 { font-size: 38px; color: var(--forest); margin-bottom: 18px; }
+.vipps-text p { font-size: 23px; line-height: 1.3; }
+.vipps-label { font-weight: 700; margin-top: 34px; }
+.vipps-note { grid-column: 1 / -1; align-self: end; font-size: 21px; color: var(--muted-dark); padding-bottom: 32px; }
+.vipps-qr { padding-top: 20px; text-align: center; }
+.vipps-qr .qr { width: 260px; height: 260px; image-rendering: auto; }
+.vipps-qr figcaption { margin-top: 18px; font-weight: 700; font-size: 24px; }
+
+/* ---------- 8: Her finner du oss ---------- */
+.slide--contact .body-l { margin-bottom: 0; }
+.qr-grid { display: grid; grid-template-columns: repeat(4, 332px); gap: 22px; margin-top: 50px; }
+.qr-grid figure {
+  height: 422px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 34px;
+}
+.qr-grid .qr { width: 240px; height: 240px; }
+.qr-grid figcaption { margin-top: 40px; font-size: 30px; }
+.qr-grid figcaption img { width: 38px; height: auto; }
+.contact-line { display: flex; gap: 22px; margin-top: 20px; font-size: 21px; }
+.contact-band {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 164px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--moss);
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 30px;
+}
+
+/* ---------- Navigation bar (below the canvas, outside the scaled stage) ---------- */
+.slide-nav {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 6px;
+  background: #0b0a07;
+  font-family: var(--sans);
+  transition: opacity 0.3s ease;
+}
+.slideshow.nav-hidden .slide-nav { opacity: 0; pointer-events: none; }
+.nav-list { flex: 1; display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.nav-list li { flex: 1; min-width: 0; display: flex; }
+.nav-item, .nav-btn {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+.nav-item {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.nav-item::before { content: attr(data-index) "  "; color: var(--muted-dark); }
+.nav-item:hover, .nav-btn:hover { color: var(--cream); }
+.nav-item[aria-current="true"] { color: var(--cream); background: rgba(255, 255, 255, 0.06); }
+/* progress towards the next slide */
+.nav-item .progress {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.nav-item[aria-current="true"] .progress { animation: progress var(--duration, 10s) linear forwards; }
+.slideshow.is-paused .nav-item .progress { animation-play-state: paused; }
+@keyframes progress { to { transform: scaleX(1); } }
+.nav-btn { width: 44px; flex: 0 0 44px; display: grid; place-items: center; }
+.nav-btn svg { width: 20px; height: 20px; }
+.nav-btn--pause .icon-play, .slideshow.is-paused .nav-btn--pause .icon-pause { display: none; }
+.slideshow.is-paused .nav-btn--pause .icon-play { display: block; }
+.slideshow.is-paused .nav-btn--pause { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+
+@media (max-width: 700px) {
+  /* Small screens: show slide numbers only */
+  .nav-item { font-size: 0; text-align: center; padding: 0; }
+  .nav-item::before { content: attr(data-index); font-size: 14px; color: inherit; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-active { transition: none; }
+}

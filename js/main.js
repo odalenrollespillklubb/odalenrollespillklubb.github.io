@@ -8,19 +8,35 @@ function setScrolled() {
 setScrolled();
 window.addEventListener('scroll', setScrolled, { passive: true });
 
+function setMenuOpen(isOpen) {
+  mainNav.classList.toggle('open', isOpen);
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Lukk meny' : 'Åpne meny');
+  // Keep the page behind the open mobile menu from scrolling
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
 function closeMenu() {
-  mainNav.classList.remove('open');
-  menuToggle.setAttribute('aria-expanded', 'false');
+  if (mainNav.classList.contains('open')) setMenuOpen(false);
 }
 
 menuToggle.addEventListener('click', () => {
-  const isOpen = mainNav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  setMenuOpen(!mainNav.classList.contains('open'));
 });
 
 mainNav.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', closeMenu);
 });
+
+// Tapping outside the open menu, or pressing Escape, closes it
+document.addEventListener('click', e => {
+  if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
+});
+// Rotating a phone/resizing past the mobile breakpoint shouldn't leave the page locked
+window.matchMedia('(min-width: 861px)').addEventListener('change', closeMenu);
 
 // Stretch each wavy divider to the text width of the heading right above it,
 // rounded to whole waves so the line never ends mid-curve.
