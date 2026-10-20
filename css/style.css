@@ -269,6 +269,210 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
 .feature-item h3 { font-size: 24px; margin-bottom: 14px; }
 .feature-item p { color: var(--text-dark); font-size: 17px; }
 
+/* ---------- Event calendar ---------- */
+/* Type colours: the names editors can write in the «Typer» sheet (see js/events.js) */
+.event--blue   { --event-color: #3c78d8; --event-bg: #e8f0fd; }
+.event--red    { --event-color: #cc4125; --event-bg: #fbe9e7; }
+.event--yellow { --event-color: #d9a400; --event-bg: #fff6dc; }
+.event--green  { --event-color: #5e9e45; --event-bg: #eaf4e5; }
+.event--purple { --event-color: #7e6bb8; --event-bg: #f0ecf8; }
+.event--orange { --event-color: #e07b1f; --event-bg: #fdefe0; }
+.event--gray   { --event-color: #8a8a8a; --event-bg: #f2f2f2; }
+
+/* "Neste hendelse" in the hero panel */
+.next-event { margin-top: 32px; }
+.next-event-label {
+  font-family: var(--font-nav);
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--maroon);
+  margin-bottom: 10px;
+}
+.next-event-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: min(100%, 420px);
+  background: #fff;
+  border-left: 6px solid var(--event-color);
+  padding: 16px 28px;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text-dark);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.next-event-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16); }
+.next-event-title { font-family: var(--font-heading); font-size: 26px; line-height: 1.2; }
+.next-event-when { font-weight: 700; font-size: 17px; }
+.next-event-when::first-letter { text-transform: uppercase; }
+.next-event-where { color: var(--text-muted); font-size: 15px; }
+.next-event-more { color: var(--blue); font-size: 14px; margin-top: 6px; }
+.next-event-empty { font-size: 17px; }
+.next-event-empty a { color: var(--blue); }
+
+/* Calendar section */
+.calendar { padding: 80px 0; }
+.event-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-bottom: 32px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+.event-legend[hidden] { display: none; }
+.event-legend-item { display: flex; align-items: center; gap: 8px; }
+.event-legend-item::before {
+  content: "";
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  background: var(--event-bg);
+  border: 3px solid var(--event-color);
+}
+
+.event-list { position: relative; max-width: 920px; margin: 0 auto; }
+
+/* Scroll box: js/events.js sets max-height so the first 4 events show */
+.event-list--scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: inset 0 -12px 12px -12px rgba(0, 0, 0, 0.15);
+}
+.event-list--scroll .event-month-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  margin: 0 0 10px;
+  padding: 16px 0 6px;
+}
+.event-list--scroll .event:last-child { margin-bottom: 16px; }
+.event-status { text-align: center; color: var(--text-muted); font-size: 17px; }
+.event-status a { color: var(--blue); }
+
+.event-month-heading {
+  font-size: 22px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.event-list > .event-month-heading:first-child { margin-top: 0; }
+
+.event {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
+  padding: 14px 20px 14px 16px;
+  background: var(--event-bg);
+  border-left: 6px solid var(--event-color);
+  border-radius: 4px;
+}
+
+.event-date { display: flex; flex-direction: column; align-items: center; line-height: 1.1; text-align: center; }
+.event-weekday, .event-month { font-size: 13px; color: var(--text-muted); }
+.event-day { font-family: var(--font-heading); font-size: 30px; margin: 2px 0; }
+
+.event-type {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--event-color);
+  filter: brightness(0.8);
+}
+.event-title { font-family: var(--font-heading); font-weight: 400; font-size: 21px; margin: 0 0 4px; }
+.event-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 15px; }
+.event-time { font-weight: 700; }
+.event-week { color: var(--text-muted); font-size: 13px; }
+.event-age {
+  font-weight: 700;
+  font-size: 13px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(13, 120, 203, 0.12);
+  color: var(--blue);
+}
+.event-age--adult { background: rgba(146, 6, 4, 0.12); color: var(--maroon); }
+.event-shift { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+.event-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.event-place { font-size: 15px; }
+.event-place--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.event-place--link::before { content: "📍"; font-size: 13px; }
+.event-place--link:hover { border-color: var(--blue); color: var(--blue); }
+
+.add-to-cal { position: relative; }
+.add-to-cal-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--blue);
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.add-to-cal-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 200px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  padding: 6px 0;
+}
+.add-to-cal-menu[hidden] { display: none; }
+.add-to-cal-menu a, .add-to-cal-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text-dark);
+  text-decoration: none;
+  cursor: pointer;
+}
+.add-to-cal-menu a:hover, .add-to-cal-menu button:hover { background: var(--blue-tint); color: var(--blue); }
+
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.event-actions [hidden] { display: none; }
+.event-list--past { margin-top: 32px; }
+.event-list--past .event { opacity: 0.7; }
+
 /* ---------- Social / starfield ---------- */
 .starfield {
   position: relative;
@@ -649,6 +853,16 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
   html { scroll-padding-top: calc(54px + var(--section-nav-height)); }
   .section-nav { top: 54px; }
   .section-nav a { padding: 0 10px; font-size: 14px; }
+
+  .event {
+    grid-template-columns: 56px 1fr;
+    gap: 6px 14px;
+    padding: 12px 14px 12px 10px;
+  }
+  .event-list--scroll { padding: 0 10px; }
+  .event-side { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+  .next-event-card { padding: 14px 18px; }
+  .next-event-title { font-size: 22px; }
 
   .news-panel { padding: 24px; }
   .news-panel--discord { padding: 0; }

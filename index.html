@@ -20,7 +20,7 @@
     </a>
     <nav class="main-nav" id="main-nav">
       <a href="#why">Hvorfor Bli Med Oss</a>
-      <a href="#events">Arrangementer</a>
+      <a href="#kalender">Arrangementer</a>
       <a href="#announcements">Siste nytt</a>
       <a href="#contact">Kontakt oss</a>
       <a href="https://tirco.tv/orklib">OrkLib</a>
@@ -38,12 +38,14 @@
       <h1>Spill med oss!</h1>
       <p class="lead">Bli med oss å spille, male og skape fantastiske verdener og opplevelser.</p>
       <p class="lead">Vi tilbyr Brettspill, rollespill og utløp for det kreative! Et sted der du kan være deg selv og drive med det du liker best!</p>
+      <div class="next-event" id="next-event" aria-live="polite" hidden></div>
     </div>
   </section>
 
   <nav class="section-nav" id="section-nav" aria-label="Hopp til seksjon">
     <a href="#adventure">Om oss</a>
     <a href="#why">Fellesskapet</a>
+    <a href="#kalender">Kalender</a>
     <a href="#social">Følg oss</a>
     <a href="#announcements">Facebook</a>
     <a href="#discord">Discord</a>
@@ -92,6 +94,29 @@
           <p>Vår klubb arrangerer jevnlig temadager og andre morsomme arrangementer.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="calendar" id="kalender">
+    <div class="container">
+      <h2 class="section-heading">Kommende arrangementer</h2>
+      <span class="wavy wavy--md center" aria-hidden="true"></span>
+
+      <ul class="event-legend" id="event-legend" aria-label="Fargeforklaring" hidden></ul>
+
+      <div class="event-list" id="event-list">
+        <p class="event-status">Laster arrangementer&hellip;</p>
+      </div>
+      <noscript>
+        <p class="event-status">Kalenderen trenger JavaScript. Se <a href="https://www.facebook.com/OdalenRollespillklubb">Facebook-siden vår</a> for kommende arrangementer.</p>
+      </noscript>
+
+      <div class="event-actions">
+        <button class="btn-pill" id="download-all-events" type="button" hidden>Legg hele kalenderen i din kalender (.ics)</button>
+        <button class="btn-pill btn-outline" id="toggle-past-events" type="button" aria-expanded="false" aria-controls="past-event-list" hidden>Vis tidligere arrangementer</button>
+      </div>
+
+      <div class="event-list event-list--past" id="past-event-list" hidden></div>
     </div>
   </section>
 
@@ -307,6 +332,7 @@
 <script src="js/consent.js"></script>
 <script src="js/contact.js"></script>
 <script src="js/section-nav.js"></script>
+<script src="js/events.js"></script>
 <script src="https://tirco.tv/orklib/js/orklib-nyheter.js"></script>
 </body>
 </html>
