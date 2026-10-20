@@ -16,7 +16,7 @@ const CSV_SOURCES = params.has('testdata')
   ? { arrangementer: 'temp/test-arrangementer.csv', typer: 'temp/test-typer.csv', steder: 'temp/test-steder.csv' }
   : SHEET_CSV;
 
-const FACEBOOK_URL = 'https://www.facebook.com/OdalenRollespillklubb';
+const FACEBOOK_URL = 'https://www.facebook.com/OdalRollespillklubb';
 const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 const WEEKDAYS = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
 
@@ -147,7 +147,7 @@ function buildEvent(record, typeColors, placeAddresses) {
     typeName,
     color: typeColors.get(typeName.toLowerCase()) || 'gray',
     age: record['aldersgrense'] || '',
-    shift: record['vakt'] || '',
+    responsible: record['ansvarlig'] || record['vakt'] || '',
     place: record['sted'] || '',
     address: placeAddresses.get((record['sted'] || '').toLowerCase()) || '',
     fromText: record['fra'] || '',
@@ -238,9 +238,9 @@ function eventDescription(event) {
   const lines = [];
   if (event.typeName) lines.push(`Type: ${event.typeName}`);
   if (event.age) lines.push(`Aldersgrense: ${event.age}`);
-  if (event.shift) lines.push(`Vakt: ${event.shift}`);
+  if (event.responsible) lines.push(`Ansvarlig: ${event.responsible}`);
   if (event.to && event.to.openEnd) lines.push(`Sluttid: ${event.toText} (kan vare lenger)`);
-  lines.push('Odalen RollespillKlubb');
+  lines.push('Odal Rollespillklubb');
   return lines.join('\n');
 }
 
@@ -288,7 +288,7 @@ const ICS_TIMEZONE = [
 ];
 
 function icsEvent(event, stamp) {
-  const lines = ['BEGIN:VEVENT', `UID:${event.id}@odalenrollespillklubb`, `DTSTAMP:${stamp}`];
+  const lines = ['BEGIN:VEVENT', `UID:${event.id}@odalrollespill.no`, `DTSTAMP:${stamp}`];
   if (event.from) {
     const end = calendarEnd(event);
     lines.push(`DTSTART;TZID=Europe/Oslo:${icsLocal(event.day, event.from)}`);
@@ -307,8 +307,8 @@ function icsEvent(event, stamp) {
 function downloadIcs(events, filename) {
   const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   const lines = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Odalen RollespillKlubb//Kalender//NO',
-    'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:Odalen RollespillKlubb',
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Odal Rollespillklubb//Kalender//NO',
+    'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:Odal Rollespillklubb',
     ...ICS_TIMEZONE,
     ...events.flatMap(event => icsEvent(event, stamp)),
     'END:VCALENDAR',
@@ -418,7 +418,7 @@ function renderEvent(event, { past }) {
   if (!event.unknownDate) meta.append(el('span', 'event-week', `uke ${isoWeek(event.start)}`));
   if (event.age) meta.append(el('span', /18/.test(event.age) ? 'event-age event-age--adult' : 'event-age', event.age));
   main.append(meta);
-  if (event.shift) main.append(el('p', 'event-shift', `Vakt: ${event.shift}`));
+  if (event.responsible) main.append(el('p', 'event-responsible', `Ansvarlig: ${event.responsible}`));
 
   const side = el('div', 'event-side');
   const place = renderPlace(event);
@@ -599,7 +599,7 @@ async function initEvents() {
 
   const downloadable = upcoming.filter(e => !e.unknownDate);
   downloadAll.hidden = downloadable.length === 0;
-  downloadAll.addEventListener('click', () => downloadIcs(downloadable, 'odalen-rollespillklubb.ics'));
+  downloadAll.addEventListener('click', () => downloadIcs(downloadable, 'odal-rollespillklubb.ics'));
 
   if (past.length) {
     renderList(pastList, past, { past: true });

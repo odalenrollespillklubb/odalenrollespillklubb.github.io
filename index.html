@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odalen RollespillKlubb</title>
-<meta name="description" content="Odalen RollespillKlubb - Bli med oss å spille, male og skape fantastiske verdener og opplevelser. Brettspill, rollespill og sosialt samvær i Nord-Odal.">
-<link rel="icon" type="image/jpeg" href="assets/images/favicon.jpg">
+<title>Odal Rollespillklubb</title>
+<meta name="description" content="Odal Rollespillklubb - Bli med oss å spille, male og skape fantastiske verdener og opplevelser. Brettspill, rollespill og sosialt samvær i Nord-Odal.">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
@@ -16,7 +17,7 @@
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <a href="#top" class="logo-link">
-      <img class="logo-img" src="assets/images/logo.png" alt="Odalen RollespillKlubb">
+      <img class="logo-img" src="assets/images/logo.png" alt="Odal Rollespillklubb">
     </a>
     <nav class="main-nav" id="main-nav">
       <a href="#why">Hvorfor Bli Med Oss</a>
@@ -59,7 +60,7 @@
     <div class="adventure-panel">
       <h2>Bli med oss på episke eventyr!</h2>
       <span class="wavy wavy--lg" aria-hidden="true"></span>
-      <p>Velkommen til Odalen RollespillKlubb, hvor vi samles for å skape magiske øyeblikk og utforske fantastiverdener.</p>
+      <p>Velkommen til Odal Rollespillklubb, hvor vi samles for å skape magiske øyeblikk og utforske fantastiverdener.</p>
       <p>Vi er en rollespillklubb basert i Nord-Odal Kommune, og vi inviterer deg til å bli med på spennende eventyr fylt med intriger, farer og uendelige muligheter!</p>
     </div>
   </section>
@@ -108,7 +109,7 @@
         <p class="event-status">Laster arrangementer&hellip;</p>
       </div>
       <noscript>
-        <p class="event-status">Kalenderen trenger JavaScript. Se <a href="https://www.facebook.com/OdalenRollespillklubb">Facebook-siden vår</a> for kommende arrangementer.</p>
+        <p class="event-status">Kalenderen trenger JavaScript. Se <a href="https://www.facebook.com/OdalRollespillklubb">Facebook-siden vår</a> for kommende arrangementer.</p>
       </noscript>
 
       <div class="event-actions">
@@ -123,11 +124,11 @@
   <section class="social starfield" id="social">
     <div class="social-card">
       <div class="social-col">
-        <a class="icon-link" href="https://www.facebook.com/OdalenRollespillklubb" target="_blank" rel="noopener">
+        <a class="icon-link" href="https://www.facebook.com/OdalRollespillklubb" target="_blank" rel="noopener">
           <img class="social-icon" src="assets/images/facebook-icon.webp" alt="Facebook">
         </a>
         <p>Følg med på vår Facebookside for oppdateringer og informasjon om kommende eventer. Sammen skaper vi magiske spillopplevelser!</p>
-        <a class="btn-pill" href="https://www.facebook.com/OdalenRollespillklubb" target="_blank" rel="noopener">Facebook</a>
+        <a class="btn-pill" href="https://www.facebook.com/OdalRollespillklubb" target="_blank" rel="noopener">Facebook</a>
       </div>
       <div class="social-col">
         <a class="icon-link" href="https://discord.gg/XABXRv8t3A" target="_blank" rel="noopener">
@@ -147,12 +148,12 @@
       <div class="news-panel">
         <p class="news-intro">Viktige beskjeder og oppdateringer legges ut på Facebooksiden vår.</p>
         <div class="embed-placeholder" id="fb-embed-placeholder">
-          <p class="embed-consent-message" id="fb-embed-consent-message">
+          <p class="embed-consent-message">
             Vi trenger ditt samtykke til cookies for å vise Facebook-feeden her.
-            <button class="link-btn" id="fb-embed-accept-link">Godta cookies</button>
+            <button class="link-btn embed-accept-link">Godta cookies</button>
           </p>
         </div>
-        <a class="fallback-link" href="https://www.facebook.com/OdalenRollespillklubb" target="_blank" rel="noopener">Se siden på Facebook &rarr;</a>
+        <a class="fallback-link" href="https://www.facebook.com/OdalRollespillklubb" target="_blank" rel="noopener">Se siden på Facebook &rarr;</a>
       </div>
     </div>
   </section>
@@ -164,7 +165,15 @@
 
       <div class="news-panel news-panel--discord">
         <p class="news-intro">Nyheter og kunngjøringer fra Discord-serveren vår.</p>
-        <div data-orklib-news></div>
+        <div class="discord-layout">
+          <div data-orklib-news></div>
+          <div class="embed-placeholder embed-placeholder--discord" id="discord-widget-placeholder">
+            <p class="embed-consent-message">
+              Vi trenger ditt samtykke til cookies for å vise hvem som er pålogget Discord.
+              <button class="link-btn embed-accept-link">Godta cookies</button>
+            </p>
+          </div>
+        </div>
         <a class="fallback-link" href="https://discord.gg/XABXRv8t3A" target="_blank" rel="noopener">Bli med på Discord &rarr;</a>
       </div>
     </div>
@@ -214,7 +223,7 @@
 
       <div class="gallery-grid">
         <a href="assets/images/gallery-1-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-1.jpg" alt=""></a>
-        <a href="assets/images/gallery-2-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-2.jpg" alt="Odalen RollespillKlubb logo"></a>
+        <a href="assets/images/gallery-2-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-2.jpg" alt="Odal Rollespillklubb logo"></a>
         <a href="assets/images/gallery-3-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-3.jpg" alt=""></a>
         <a href="assets/images/gallery-4-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-4.jpg" alt=""></a>
         <a href="assets/images/gallery-5-full.jpg" target="_blank" rel="noopener"><img src="assets/images/gallery-5.jpg" alt=""></a>
@@ -263,9 +272,9 @@
             <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.02l-2.2 2.21z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             <span>+47 99 51 52 52</span>
           </a>
-          <a class="contact-line" href="mailto:odalenrollespillklubb@gmail.com">
+          <a class="contact-line" href="mailto:odalrollespillklubb@gmail.com">
             <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <span>odalenrollespillklubb@gmail.com</span>
+            <span>odalrollespillklubb@gmail.com</span>
           </a>
           <a class="contact-line" href="https://www.google.com/maps/search/?api=1&query=%22ORK%2C%20Norbakken%205%2C%202133%20Gardvik%2C%20Norway%22" target="_blank" rel="noopener">
             <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.58 7-12.5A7 7 0 105 9.5C5 14.42 12 22 12 22z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -306,7 +315,7 @@
 </main>
 
 <footer class="site-footer">
-  <p>Copyright &copy; Med enerett &mdash; Odalen RollespillKlubb</p>
+  <p>Copyright &copy; Med enerett &mdash; Odal Rollespillklubb</p>
   <p class="footer-links">
     <a href="personvern.html">Personvern og cookies</a>
     &middot;
@@ -317,7 +326,7 @@
 <div class="cookie-banner" id="cookie-banner" hidden>
   <div class="cookie-banner-inner">
     <p>
-      Vi bruker cookies fra Facebook for å vise Facebook-feeden vår p&aring; siden.
+      Vi bruker cookies fra Facebook og Discord for å vise Facebook-feeden vår og hvem som er pålogget Discord-serveren.
       Se hvilke cookies vi bruker p&aring; <a href="personvern.html">personvernsiden</a>.
     </p>
     <div class="cookie-banner-actions">
