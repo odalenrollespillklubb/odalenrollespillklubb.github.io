@@ -304,9 +304,16 @@
 
             <p class="form-privacy">Meldingen sendes via Formspree. Les mer i <a href="personvern.html#kontaktskjema">personvernerklæringen</a>.</p>
 
+            <p class="form-message" id="contact-form-message" role="alert" hidden></p>
             <button type="submit" class="btn-pill btn-send">Send</button>
-            <p class="form-message" id="contact-form-message" hidden></p>
           </form>
+
+          <div class="form-success" id="contact-form-success" tabindex="-1" hidden>
+            <svg class="form-success-icon" viewBox="0 0 60 61" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M30.001 6.25C16.6081 6.25 5.75098 17.1071 5.75098 30.5C5.75098 43.8929 16.6081 54.75 30.001 54.75C43.3939 54.75 54.251 43.8929 54.251 30.5C54.251 17.1071 43.3939 6.25 30.001 6.25ZM3.75098 30.5C3.75098 16.0025 15.5035 4.25 30.001 4.25C44.4985 4.25 56.251 16.0025 56.251 30.5C56.251 44.9975 44.4985 56.75 30.001 56.75C15.5035 56.75 3.75098 44.9975 3.75098 30.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M43.4755 22.3777L26.7701 39.0831L25.3559 37.6689L42.0613 20.9635L43.4755 22.3777Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18.188 29.0877L27.4772 38.377L26.063 39.7912L16.7738 30.502L18.188 29.0877Z" fill="currentColor"/></svg>
+            <h4>Takk! Meldingen er sendt.</h4>
+            <p>Vi har mottatt henvendelsen din og svarer så snart vi kan, vanligvis innen et par dager.</p>
+            <button type="button" class="btn-pill btn-outline" id="contact-form-again">Send en ny melding</button>
+          </div>
         </div>
       </div>
     </div>

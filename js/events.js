@@ -504,7 +504,10 @@ function renderNextEvent(container, event, now) {
   const relative = ongoing ? '' : relativeDayLabel(event, now);
   const when = `${relative ? relative + ', ' : ''}${WEEKDAYS[event.start.getDay()]} ${event.day.d}. ${MONTHS[event.day.m - 1]}`;
   const time = timeLabel(event);
-  card.append(el('span', 'next-event-when', time ? `${when} · ${time}` : when));
+  const whenEl = el('span', 'next-event-when', when);
+  // Keep "17:00–20:00++" on one line on narrow screens
+  if (time) whenEl.append(' · ', el('span', 'nowrap', time));
+  card.append(whenEl);
 
   const where = [event.place, event.age].filter(Boolean).join(' · ');
   if (where) card.append(el('span', 'next-event-where', where));

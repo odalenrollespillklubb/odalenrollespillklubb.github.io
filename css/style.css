@@ -1,6 +1,6 @@
 /* ---------- Reset & base ---------- */
 * , *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body, h1, h2, h3, p, blockquote, figure, form { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 img { max-width: 100%; display: block; }
@@ -124,6 +124,17 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
   scrollbar-width: none;
 }
 .section-nav::-webkit-scrollbar { display: none; }
+/* fade the right edge while there are more links to scroll to (js/section-nav.js) */
+.section-nav--more::after {
+  content: "";
+  position: sticky;
+  right: -16px;
+  flex: 0 0 48px;
+  margin-left: -48px;
+  margin-right: -16px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 80%);
+  pointer-events: none;
+}
 .section-nav a {
   display: flex;
   align-items: center;
@@ -308,6 +319,7 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
 .next-event-title { font-family: var(--font-heading); font-size: 26px; line-height: 1.2; }
 .next-event-when { font-weight: 700; font-size: 17px; }
 .next-event-when::first-letter { text-transform: uppercase; }
+.next-event-when .nowrap { white-space: nowrap; }
 .next-event-where { color: var(--text-muted); font-size: 15px; }
 .next-event-more { color: var(--blue); font-size: 14px; margin-top: 6px; }
 .next-event-empty { font-size: 17px; }
@@ -861,12 +873,49 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
     justify-content: flex-start;
     gap: 0;
     padding: 100px 32px 32px;
+    height: 100dvh;
+    z-index: 1;
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    /* hidden (also from keyboard/screen readers) once it has slid out */
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
   }
-  .main-nav.open { transform: translateX(0); }
+  .main-nav.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+  }
   .main-nav a { padding: 16px 0; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.12); }
-  .menu-toggle { display: flex; }
+
+  /* the toggle sits above the open menu and turns into an X */
+  .menu-toggle { display: flex; position: relative; z-index: 2; width: 44px; height: 44px; padding: 10px 6px; }
+  .menu-toggle span { transition: transform 0.25s ease, opacity 0.2s ease; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* less air between sections on a small screen */
+  .features, .announcements, .calendar, .showcase, .gallery, .testimonials, .contact { padding: 56px 0; }
+  .wavy--md { margin-bottom: 28px; }
+  .hero { min-height: 100svh; padding: calc(54px + 24px) 16px 48px; }
+  .adventure { padding: 56px 16px; }
+  .starfield { padding: 48px 16px; }
+  .social-card { padding: 32px 20px; gap: 32px; }
+  .icon-link { width: 72px; }
+  .social-icon { width: 72px; height: 72px; margin-bottom: 14px; }
+  .showcase-row { gap: 24px; margin-top: 40px; }
+  .showcase-image img { height: 240px; }
+  [data-orklib-news] { max-height: 420px; }
+
+  /* tap targets of at least ~44px; vertical padding on inline links grows
+     the tappable area without moving the text around */
+  .add-to-cal-btn { padding: 12px 0; }
+  .fallback-link { display: inline-block; padding: 12px 8px; }
+  .embed-accept-link { display: inline-block; padding: 12px 4px; }
+  .contact-line { padding: 8px 0; margin-bottom: 12px; }
+  .footer-links a, .footer-links .link-btn { display: inline-block; padding: 12px 6px; }
+  .form-privacy a { padding: 12px 0; }
 
   /* the mobile header is only 54px tall (34px logo + 10px padding top and bottom) */
   html { scroll-padding-top: calc(54px + var(--section-nav-height)); }
@@ -904,13 +953,10 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
   .showcase-row.reverse .showcase-image { order: initial; }
   .showcase-image--portrait img { height: auto; }
 
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 28px; }
+  .gallery-grid img { height: 160px; }
 
   .contact-form-card { padding: 24px; }
-}
-
-@media (max-width: 500px) {
-  .gallery-grid { grid-template-columns: 1fr; }
 }
 
 /* ---------- Full-height starfield sections (404 page) ---------- */
@@ -924,7 +970,19 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
 /* ---------- Contact form feedback + honeypot ---------- */
 .form-message { margin-top: 16px; padding: 12px 16px; border-radius: 4px; font-size: 15px; }
 .form-message--error { background: rgba(146, 6, 4, 0.08); color: var(--maroon); border: 1px solid rgba(146, 6, 4, 0.25); }
-.form-message--success { background: rgba(13, 120, 203, 0.08); color: var(--blue); border: 1px solid rgba(13, 120, 203, 0.25); }
+.contact-form[hidden], .form-success[hidden] { display: none; }
+
+/* Shown in place of the form once a message has been sent */
+.form-success {
+  text-align: center;
+  padding: 32px 12px 16px;
+  outline: none;
+  animation: form-success-in 0.4s ease;
+}
+.form-success-icon { width: 72px; height: 72px; margin: 0 auto 16px; color: var(--blue); }
+.form-success h4 { font-family: var(--font-heading); font-weight: 400; font-size: 26px; margin: 0 0 12px; }
+.form-success p { font-size: 17px; color: var(--text-muted); max-width: 380px; margin: 0 auto 24px; }
+@keyframes form-success-in { from { opacity: 0; transform: translateY(8px); } }
 
 /* Honeypot field -- hidden from real visitors, catches simple bots */
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

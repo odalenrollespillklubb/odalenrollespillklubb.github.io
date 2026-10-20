@@ -33,6 +33,15 @@ if (sectionNav) {
 
   linkBySection.forEach((link, section) => observer.observe(section));
 
+  // Hint that the bar scrolls sideways while there are more links to the right
+  function updateMoreHint() {
+    const more = sectionNav.scrollLeft + sectionNav.clientWidth < sectionNav.scrollWidth - 4;
+    sectionNav.classList.toggle('section-nav--more', more);
+  }
+  updateMoreHint();
+  sectionNav.addEventListener('scroll', updateMoreHint, { passive: true });
+  window.addEventListener('resize', updateMoreHint);
+
   // Back up in the hero: nothing is current
   const hero = document.getElementById('hero');
   if (hero) {

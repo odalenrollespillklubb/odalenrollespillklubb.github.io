@@ -4,12 +4,23 @@
 
 const contactForm = document.querySelector('.contact-form');
 const contactMessage = document.getElementById('contact-form-message');
+const contactSuccess = document.getElementById('contact-form-success');
+const ERROR_TEXT = 'Noe gikk galt, og meldingen ble ikke sendt. Prøv igjen, eller send oss en e-post direkte.';
 
-function showContactMessage(text, ok) {
-  contactMessage.textContent = text;
-  contactMessage.classList.toggle('form-message--error', !ok);
-  contactMessage.classList.toggle('form-message--success', ok);
+function showError() {
+  contactMessage.textContent = ERROR_TEXT;
+  contactMessage.classList.add('form-message--error');
   contactMessage.hidden = false;
+  contactMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Swap the form for a big, unmissable confirmation and bring it into view
+function showSuccess() {
+  contactForm.reset();
+  contactForm.hidden = true;
+  contactSuccess.hidden = false;
+  contactSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  contactSuccess.focus({ preventScroll: true });
 }
 
 if (contactForm) {
@@ -17,6 +28,8 @@ if (contactForm) {
     e.preventDefault();
     const submitBtn = contactForm.querySelector('.btn-send');
     submitBtn.disabled = true;
+    submitBtn.textContent = 'Sender…';
+    contactMessage.hidden = true;
 
     const data = new FormData(contactForm);
     data.append('_subject', '[Kontaktskjema] ' + data.get('emne'));
@@ -27,17 +40,19 @@ if (contactForm) {
         body: data,
         headers: { Accept: 'application/json' },
       });
-
-      if (response.ok) {
-        showContactMessage('Takk for din henvendelse! Vi svarer så snart vi kan.', true);
-        contactForm.reset();
-      } else {
-        showContactMessage('Noe gikk galt. Prøv igjen senere, eller send oss en e-post direkte.', false);
-      }
+      if (response.ok) showSuccess();
+      else showError();
     } catch (err) {
-      showContactMessage('Noe gikk galt. Prøv igjen senere, eller send oss en e-post direkte.', false);
+      showError();
     } finally {
       submitBtn.disabled = false;
+      submitBtn.textContent = 'Send';
     }
+  });
+
+  document.getElementById('contact-form-again').addEventListener('click', () => {
+    contactSuccess.hidden = true;
+    contactForm.hidden = false;
+    document.getElementById('navn').focus();
   });
 }
