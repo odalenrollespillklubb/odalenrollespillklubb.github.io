@@ -1,4 +1,4 @@
-const FACEBOOK_PAGE_URL = 'https://www.facebook.com/OdalenRollespillklubb';
+const FACEBOOK_PAGE_URL = 'https://www.facebook.com/OdalRollespillklubb';
 
 function loadFacebookEmbed(container) {
   container.innerHTML = `
@@ -36,8 +36,23 @@ function loadFacebookEmbed(container) {
   }
 }
 
+// Discord's server widget (who's online + join button). The iframe sets
+// Discord's own cookies, so it is consent-gated just like Facebook.
+const DISCORD_WIDGET_URL = 'https://discord.com/widget?id=977647023673180190&theme=dark';
+
+function loadDiscordWidget(container) {
+  container.innerHTML = `
+    <iframe src="${DISCORD_WIDGET_URL}"
+      title="Discord-serveren vår: hvem som er pålogget"
+      width="350" height="500"
+      allowtransparency="true" frameborder="0" loading="lazy"
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+    </iframe>
+  `;
+}
+
 // Loading is gated behind cookie consent (see js/consent.js), which calls
-// loadFacebookEmbed(...) directly once the visitor accepts cookies.
+// loadFacebookEmbed(...) / loadDiscordWidget(...) once the visitor accepts cookies.
 
 // Discord news is rendered by the ORKLib widget (tirco.tv/orklib), loaded
 // directly from index.html into the [data-orklib-news] element.

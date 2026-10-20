@@ -1,7 +1,12 @@
 const CONSENT_KEY = 'ork_cookie_consent';
 
 const cookieBanner = document.getElementById('cookie-banner');
-const fbPlaceholder = document.getElementById('fb-embed-placeholder');
+
+// Third-party embeds that set cookies and therefore wait for consent
+const consentEmbeds = [
+  { placeholder: document.getElementById('fb-embed-placeholder'), load: loadFacebookEmbed, what: 'vise Facebook-feeden her' },
+  { placeholder: document.getElementById('discord-widget-placeholder'), load: loadDiscordWidget, what: 'vise hvem som er pålogget Discord' },
+].filter(embed => embed.placeholder);
 
 function getConsent() {
   return localStorage.getItem(CONSENT_KEY);
@@ -12,28 +17,30 @@ function setConsent(value) {
   applyConsent(value);
 }
 
-function bindAcceptLink() {
-  const link = document.getElementById('fb-embed-accept-link');
-  if (link) link.addEventListener('click', () => setConsent('accepted'));
+function bindAcceptLinks() {
+  document.querySelectorAll('.embed-accept-link').forEach(link => {
+    link.addEventListener('click', () => setConsent('accepted'));
+  });
 }
 
 function applyConsent(value) {
   if (cookieBanner) cookieBanner.hidden = true;
-  if (!fbPlaceholder) return;
 
-  if (value === 'accepted') {
-    loadFacebookEmbed(fbPlaceholder);
-    return;
-  }
+  consentEmbeds.forEach(({ placeholder, load, what }) => {
+    if (value === 'accepted') {
+      load(placeholder);
+      return;
+    }
 
-  // declined, or no decision yet: (re-)show the consent message
-  fbPlaceholder.innerHTML = `
-    <p class="embed-consent-message" id="fb-embed-consent-message">
-      Vi trenger ditt samtykke til cookies for å vise Facebook-feeden her.
-      <button class="link-btn" id="fb-embed-accept-link">Godta cookies</button>
-    </p>
-  `;
-  bindAcceptLink();
+    // declined, or no decision yet: (re-)show the consent message
+    placeholder.innerHTML = `
+      <p class="embed-consent-message">
+        Vi trenger ditt samtykke til cookies for å ${what}.
+        <button class="link-btn embed-accept-link">Godta cookies</button>
+      </p>
+    `;
+  });
+  bindAcceptLinks();
 }
 
 function showBanner() {
@@ -44,7 +51,7 @@ document.getElementById('cookie-accept')?.addEventListener('click', () => setCon
 document.getElementById('cookie-decline')?.addEventListener('click', () => setConsent('declined'));
 document.getElementById('open-cookie-settings')?.addEventListener('click', showBanner);
 
-bindAcceptLink();
+bindAcceptLinks();
 
 const existingConsent = getConsent();
 if (existingConsent) {
