@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Besøksstatistikk &mdash; Odal Rollespillklubb</title>
+<meta name="description" content="Åpen besøksstatistikk for Odal Rollespillklubbs nettside, uten cookies og uten lagring av IP-adresser.">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="static-page">
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img class="logo-img" src="assets/images/logo.png" alt="Odal Rollespillklubb">
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html#why">Hvorfor Bli Med Oss</a>
+      <a href="index.html#kalender">Arrangementer</a>
+      <a href="index.html#announcements">Siste nytt</a>
+      <a href="index.html#contact">Kontakt oss</a>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="legal-page stats-page">
+    <div class="container">
+      <h1 class="section-heading">Besøksstatistikk</h1>
+      <span class="wavy wavy--md center" aria-hidden="true"></span>
+
+      <p>
+        Her ser du hvor mange som besøker nettsiden vår, hvilke sider de ser på og hvor de kommer fra.
+        Statistikken samles inn med <a href="https://www.goatcounter.com" target="_blank" rel="noopener">GoatCounter</a>,
+        som ikke bruker cookies og ikke lagrer IP-adresser. Det er ikke mulig å se hvem som har besøkt siden.
+        Les mer på <a href="personvern.html#statistikk">personvernsiden</a>.
+      </p>
+
+      <div class="stats-frame">
+        <iframe src="https://ork.goatcounter.com/?hideui=1" title="Besøksstatistikk for odalrollespill.no" loading="lazy"></iframe>
+      </div>
+      <p class="stats-fallback">
+        Vises ikke statistikken? <a href="https://ork.goatcounter.com/" target="_blank" rel="noopener">Åpne den direkte hos GoatCounter &rarr;</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Copyright &copy; Med enerett &mdash; Odal Rollespillklubb</p>
+  <p class="footer-links">
+    <a href="personvern.html">Personvern og cookies</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+<!-- Besøksstatistikk (GoatCounter): ingen cookies og ingen lagring av IP-adresser. Se stats.html og personvern.html -->
+<script data-goatcounter="https://ork.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

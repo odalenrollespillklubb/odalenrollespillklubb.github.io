@@ -285,6 +285,32 @@ h2 { font-size: 68px; margin-bottom: 26px; }
 .nav-btn--pause .icon-play, .slideshow.is-paused .nav-btn--pause .icon-pause { display: none; }
 .slideshow.is-paused .nav-btn--pause .icon-play { display: block; }
 .slideshow.is-paused .nav-btn--pause { color: var(--gold); }
+.nav-speed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px 0 10px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.nav-speed:hover, .nav-speed:focus-within { color: var(--cream); }
+.nav-speed svg { width: 18px; height: 18px; flex: none; }
+.nav-speed select {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.nav-speed option { background: #0b0a07; color: var(--cream); }
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 :focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
 
 @media (max-width: 700px) {
