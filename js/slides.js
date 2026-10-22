@@ -1,5 +1,6 @@
 // Infoskjerm: auto-advancing slideshow on a fixed 1600x900 canvas.
-// ← / → (or swipe) to browse, space to pause, F for fullscreen, 1–9 to jump.
+// ← / → (or swipe) to browse, space to pause, F for fullscreen, 1–9 to jump,
+// and the clock menu in the nav bar sets the seconds per slide.
 const CANVAS_W = 1600;
 const CANVAS_H = 900;
 const IDLE_MS = 3000;
@@ -9,12 +10,30 @@ const stage = document.getElementById('stage');
 const navList = document.getElementById('nav-list');
 const pauseBtn = document.getElementById('slide-pause');
 const slides = Array.from(stage.querySelectorAll('.slide'));
-const defaultDuration = Number(show.dataset.duration) || 10;
 const params = new URLSearchParams(location.search);
+const speedSelect = document.getElementById('slide-speed');
+const SPEED_KEY = 'ork_slides_seconds';
 
 let current = 0;
 let timer = null;
 let paused = false;
+
+/* ---------- Seconds per slide: ?tid=30 > saved choice on this screen > data-duration ---------- */
+function readSavedSeconds() {
+  try { return Number(localStorage.getItem(SPEED_KEY)); } catch { return 0; }
+}
+let seconds = Number(params.get('tid')) || readSavedSeconds() || Number(show.dataset.duration) || 20;
+
+// Make sure the current value is one of the choices (e.g. ?tid=25)
+if (![...speedSelect.options].some(o => Number(o.value) === seconds)) {
+  speedSelect.add(new Option(`${seconds} s`, seconds));
+}
+speedSelect.value = String(seconds);
+speedSelect.addEventListener('change', () => {
+  seconds = Number(speedSelect.value);
+  try { localStorage.setItem(SPEED_KEY, String(seconds)); } catch { /* private mode etc. */ }
+  goTo(current); // restart this slide's time with the new speed
+});
 
 /* ---------- Shared footer ---------- */
 const footerTemplate = document.getElementById('slide-footer');
@@ -49,7 +68,7 @@ const navItems = slides.map((slide, i) => {
 });
 
 function durationOf(slide) {
-  return (Number(slide.dataset.duration) || defaultDuration) * 1000;
+  return (Number(slide.dataset.duration) || seconds) * 1000;
 }
 
 function goTo(index) {

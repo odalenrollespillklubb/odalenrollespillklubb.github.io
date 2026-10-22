@@ -225,6 +225,18 @@ html { scroll-padding-top: calc(var(--header-height) + var(--section-nav-height)
   line-height: 1.7;
   margin-bottom: 24px;
 }
+/* stats.html: the GoatCounter dashboard needs more width than the text pages */
+.legal-page.stats-page .container { max-width: 1200px; }
+.stats-frame {
+  margin: 8px 0 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.stats-frame iframe { display: block; width: 100%; height: 1600px; max-height: 85vh; min-height: 600px; border: 0; }
+.stats-fallback { font-size: 15px; color: var(--text-muted); text-align: center; }
+.stats-fallback a, .stats-page a { color: var(--blue); }
 .legal-page h2 { font-size: 26px; margin: 56px 0 20px; }
 .legal-page a { color: var(--blue); }
 .legal-table-wrap {
