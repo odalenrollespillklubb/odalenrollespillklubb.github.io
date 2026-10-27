@@ -137,6 +137,18 @@ function slugify(text) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'arrangement';
 }
 
+// Only plain web links from the sheet become clickable (never javascript: etc.)
+function safeUrl(text) {
+  const value = (text || '').trim();
+  if (!value) return '';
+  try {
+    const url = new URL(/^[a-z][a-z0-9+.-]*:/i.test(value) ? value : `https://${value}`);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
 function buildEvent(record, typeColors, placeAddresses) {
   const title = record['hva'] || record['type'];
   if (!title) throw new Error('mangler «Hva»');
@@ -152,6 +164,9 @@ function buildEvent(record, typeColors, placeAddresses) {
     address: placeAddresses.get((record['sted'] || '').toLowerCase()) || '',
     fromText: record['fra'] || '',
     toText: record['til'] || '',
+    note: record['notat'] || '',
+    link: safeUrl(record['lenke']),
+    linkText: record['lenketekst'] || 'Mer info',
   };
 
   const dateText = record['dato'] || '';
@@ -240,6 +255,8 @@ function eventDescription(event) {
   if (event.age) lines.push(`Aldersgrense: ${event.age}`);
   if (event.responsible) lines.push(`Ansvarlig: ${event.responsible}`);
   if (event.to && event.to.openEnd) lines.push(`Sluttid: ${event.toText} (kan vare lenger)`);
+  if (event.note) lines.push(event.note);
+  if (event.link) lines.push(`${event.linkText}: ${event.link}`);
   lines.push('Odal Rollespillklubb');
   return lines.join('\n');
 }
@@ -300,6 +317,7 @@ function icsEvent(event, stamp) {
   lines.push(`SUMMARY:${icsEscape(event.title)}`);
   if (event.place) lines.push(`LOCATION:${icsEscape(eventLocation(event))}`);
   lines.push(`DESCRIPTION:${icsEscape(eventDescription(event))}`);
+  if (event.link) lines.push(`URL:${event.link}`);
   lines.push('END:VEVENT');
   return lines;
 }
@@ -390,6 +408,14 @@ function renderPlace(event) {
   return link;
 }
 
+function renderEventLink(event, className = 'event-link') {
+  const link = el('a', className, `${event.linkText} →`);
+  link.href = event.link;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  return link;
+}
+
 function renderEvent(event, { past }) {
   const article = el('article', `event event--${event.color}`);
   if (!past) article.id = event.id;
@@ -419,10 +445,12 @@ function renderEvent(event, { past }) {
   if (event.age) meta.append(el('span', /18/.test(event.age) ? 'event-age event-age--adult' : 'event-age', event.age));
   main.append(meta);
   if (event.responsible) main.append(el('p', 'event-responsible', `Ansvarlig: ${event.responsible}`));
+  if (event.note) main.append(el('p', 'event-note', event.note));
 
   const side = el('div', 'event-side');
   const place = renderPlace(event);
   if (place) side.append(place);
+  if (event.link) side.append(renderEventLink(event));
   if (!past && !event.unknownDate) side.append(renderAddToCalendar(event));
 
   article.append(date, main, side);
@@ -511,9 +539,11 @@ function renderNextEvent(container, event, now) {
 
   const where = [event.place, event.age].filter(Boolean).join(' · ');
   if (where) card.append(el('span', 'next-event-where', where));
+  if (event.note) card.append(el('span', 'next-event-note', event.note));
   card.append(el('span', 'next-event-more', 'Se kalenderen →'));
 
   container.append(card);
+  if (event.link) container.append(renderEventLink(event, 'btn-pill next-event-link'));
   container.hidden = false;
 }
 
